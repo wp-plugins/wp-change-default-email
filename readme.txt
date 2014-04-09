@@ -40,6 +40,9 @@ __Voila 1, 2, 3: You are done!__
 1. Go to Plugins Settings Screen and enter your Email Address and Name
 
 == Changelog ==
+= 0.3 =
+* Fix Bug for duplicate plugin installations.
+
 = 0.2 =
 * Add support for languages.
 

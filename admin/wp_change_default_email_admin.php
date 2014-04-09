@@ -1,9 +1,7 @@
 <?php
 /*
-Plugin Name: WP Change Default Email
-Plugin URI: http://www.techeach.com/wordpress-plugins/
-Description: WP Change Default Email allows you to change the default from email and name.
-Version: 0.2
+Filename: wp_change_default_email_admin.php
+Description: Adds the admin pages for WP Change Default Email Plugin
 License: GPLv2
 Author: Vijay Sharma
 Author URI: http://www.techeach.com/
