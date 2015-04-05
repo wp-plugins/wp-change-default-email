@@ -13,11 +13,12 @@ function wp_change_default_email_admin() {
 }
 
 function wp_change_default_email_page() {
-	global $wcdeOptions;
+	//global $wcdeOptions;
 	if ( isset($_POST['wp_change_default_email_update'])) {
 	    $wcdeOptions = array();
 	    $wcdeOptions["from"] = trim($_POST["wp_change_default_email_from"]);
-	    $wcdeOptions["fromname"] = trim($_POST['wp_change_default_email_fromname']);		
+	    $wcdeOptions["fromname"] = trim($_POST['wp_change_default_email_fromname']);
+        $wcdeOptions['deactivate'] = isset($_POST['wp_change_default_email_deactivate']) ? 1 : 0;
 
 	    update_option("wp_change_default_email_options",$wcdeOptions);
 	    if(!is_email($wcdeOptions["from"])){
@@ -31,6 +32,10 @@ function wp_change_default_email_page() {
 	
 <h2><?php _e("WP Change Default Email", 'wp-change-default-email'); ?></h2>
 
+    <?php
+        //Load the Options before loading the form
+        $wcdeOptions = get_option('wp_change_default_email_options');
+    ?>
 <form action="" method="post" enctype="multipart/form-data" name="wp_change_default_email_form">
 <table class="form-table">
 	<tr valign="top">
@@ -53,6 +58,16 @@ function wp_change_default_email_page() {
 			</label>
 		</td>
 	</tr>
+    <tr valign="top">
+        <th scope="row">
+            <?php _e('Delete Options at Uninstall', 'wp-change-default-email'); ?>
+        </th>
+        <td>
+            <label>
+                <input type="checkbox" name="wp_change_default_email_deactivate" <?php if($wcdeOptions["deactivate"]) echo 'checked'; ?> />
+            </label>
+        </td>
+    </tr>
 </table>
 
 <p class="submit">

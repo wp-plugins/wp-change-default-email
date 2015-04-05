@@ -3,7 +3,7 @@
 Plugin Name: WP Change Default Email
 Plugin URI: http://www.techeach.com/wordpress-plugins
 Description: WP Change Default Email allows you to change the default from email and name.
-Version: 0.3
+Version: 0.4
 Author: Vijay Sharma
 Author Email: vijay@techeach.com
 License:
@@ -24,7 +24,7 @@ License:
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   
 */
-register_uninstall_hook(    __FILE__, array( 'WPChangeDefaultEmail', 'on_uninstall' ) );
+
 class WPChangeDefaultEmail {
 	private $wcdeOptions;
 	/*--------------------------------------------*
@@ -54,7 +54,7 @@ class WPChangeDefaultEmail {
 		$this->wcdeOptions = array();
 		$this->wcdeOptions["from"] = "";
 		$this->wcdeOptions["fromname"] = "";
-		$this->wcdeOptions["deactivate"] = "";
+		$this->wcdeOptions["deactivate"] = 0;
 		add_option("wp_change_default_email_options",$wcdeOptions);
 	}
   
@@ -62,10 +62,13 @@ class WPChangeDefaultEmail {
 	 * Runs when the plugin is deactivated
 	 */ 
   	function uninstall_wp_change_default_email() {
-  		if($wcdeOptions["deactivate"]=="yes"){
+
+        $wcdeOptions = get_option('wp_change_default_email_options');
+
+        if($wcdeOptions["deactivate"]!= 0){
   			delete_option("wp_change_default_email_options");	
 		}
-  	}
+    }
 	/**
 	 * Runs when the plugin is initialized
 	 */
@@ -111,15 +114,6 @@ class WPChangeDefaultEmail {
 		}
 		return $action_links;
 	}
-
-	//Called on Remove Plugin
-	public static function on_uninstall() {
-		$options = get_option('wp_change_default_email_options');
-		if($wcdeOptions["deactivate"]=="yes"){
-  			delete_option("wp_change_default_email_options");	
-		}
-	}
-	 
 	  
 } // end class
 
